@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import React from "react";
 
@@ -18,6 +18,10 @@ function App() {
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
+
+  useEffect(() => {
+    console.log(history);
+  }, [history]);
 
   return (
     <div className="flex flex-col justify-center  items- gap-3 h-screen w-screen p-10">

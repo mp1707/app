@@ -44,14 +44,13 @@ const useChatStream = () => {
           setResponse(newResponse);
         }
       }
-      // updatedHistory = [
-      //   ...history,
-      //   { role: "assistant", content: newResponse },
-      // ];
+     
       setHistory([
         ...updatedHistory,
         { role: "assistant", content: newResponse },
       ]);
+  
+      
     } catch (error) {
       setError(error.message);
     }
