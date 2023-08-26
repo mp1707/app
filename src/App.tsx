@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import React from "react";
 
@@ -8,6 +8,7 @@ function App() {
   const [prompt, setInput] = useState("");
   const [answer, setAnswer] = useState<string | undefined>("");
   const { response, error, sendPrompt, history, setModel } = useChatStream();
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +20,27 @@ function App() {
     setInput(e.target.value);
   };
 
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [history[history.length - 1].content]);
+
+  useEffect(() => {
+    console.log(history);
+  }, [history]);
+
   return (
     <div className="flex flex-col justify-center  items- gap-3 h-screen w-screen p-10">
       {error && <div className="alert alert-error w-11/12">{error}</div>}
       <span className="text-xl font-bold text-center">GPTiramisu</span>
-      <div className="w-full flex flex-col">
+      <div
+        className="w-full flex flex-col auto-overflow overflow-x-hidden no-scrollbar"
+        ref={chatContainerRef}
+      >
         {history.map(
-          (h, i) =>
+          (h) =>
             h.role !== "system" && (
               <div
                 className={
@@ -48,7 +63,7 @@ function App() {
               </div>
             )
         )}
-        {response && <div className="chat-bubble w-1/2 ">{response}</div>}
+        {response && <div className="chat-bubble w-1/2 hidden">{response}</div>}
       </div>
       <div className="flex flex-col justify-center items-center gap-2 w-3/4">
         <div>{/* asdasd */}</div>
@@ -73,7 +88,7 @@ function App() {
         </div>
         {/* <span className="">{response}</span> */}
       </div>
-      DEBUG: History
+      {/* DEBUG: History
       <span className="w-1/2">
         {history.map((h) => (
           <div className="flex flex-col gap-2" key={h.content}>
@@ -81,7 +96,7 @@ function App() {
             <div>{h.content}</div>
           </div>
         ))}
-      </span>
+      </span> */}
     </div>
   );
 }

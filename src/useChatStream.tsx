@@ -19,6 +19,7 @@ const useChatStream = () => {
     { role: "system", content: "behave like billy butcher from the boys" },
   ]);
   const [error, setError] = useState<string>();
+
   const [response, setResponse] = useState<string>("");
   const [model, setModel] = useState<Model>("gpt-3.5-turbo");
 
@@ -38,19 +39,16 @@ const useChatStream = () => {
 
       let newResponse = "";
 
+      updatedHistory = [...updatedHistory, { role: "assistant", content: "" }];
+
       for await (const chunk of completion) {
         if (chunk.choices[0].finish_reason !== "stop") {
           newResponse = newResponse + chunk.choices[0].delta.content;
-          const updatedHistory = [...history];
           updatedHistory[updatedHistory.length - 1].content = newResponse;
-          setHistory(updatedHistory);
+          setHistory(updatedHistory)
+          setResponse(newResponse)
         }
       }
-
-      // setHistory([
-      //   ...updatedHistory,
-      //   { role: "assistant", content: newResponse },
-      // ]);
     } catch (error) {
       setError(error.message);
     }
