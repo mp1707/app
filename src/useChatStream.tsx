@@ -28,7 +28,7 @@ const useChatStream = () => {
       { role: "user", content: prompt },
     ];
     setHistory(updatedHistory);
-    
+
     try {
       const completion = await openai.chat.completions.create({
         model: model,
@@ -41,17 +41,16 @@ const useChatStream = () => {
       for await (const chunk of completion) {
         if (chunk.choices[0].finish_reason !== "stop") {
           newResponse = newResponse + chunk.choices[0].delta.content;
-          setResponse(newResponse);
+          const updatedHistory = [...history];
+          updatedHistory[updatedHistory.length - 1].content = newResponse;
+          setHistory(updatedHistory);
         }
       }
-      // updatedHistory = [
-      //   ...history,
+
+      // setHistory([
+      //   ...updatedHistory,
       //   { role: "assistant", content: newResponse },
-      // ];
-      setHistory([
-        ...updatedHistory,
-        { role: "assistant", content: newResponse },
-      ]);
+      // ]);
     } catch (error) {
       setError(error.message);
     }
