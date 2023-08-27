@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import useChatStream from "../useChatStream";
 import { themeChange } from "theme-change";
-import ChatBubble from "./ChatBubble";
-import InputForm from "./InputForm";
-import { themes } from "./themes";
+import ChatBubble from "../components/ChatBubble";
+import InputForm from "../components/InputForm";
+import { themes } from "../components/themes";
+import LayoutContainer from "../components/LayoutContainer";
 
 const ChatApp = () => {
   const [input, setInput] = useState("");
@@ -35,24 +36,12 @@ const ChatApp = () => {
         chatContainerRef.current.scrollHeight;
     }
   }, [history[history.length - 1].content]);
-
-  useEffect(() => {
-    themeChange(false);
-    // 👆 false parameter is required for react project
-  }, []);
   return (
-    <div className="flex justify-center items-center gap-3 h-screen w-screen">
-      <div className="flex flex-col justify-center items-center gap-2 h-full w-screen md:w-5/6 lg:w-3/5 bg-base-200 px-10 py-5">
+    <LayoutContainer >
+      <div className="flex flex-col justify-center items-center gap-2 h-full w-screen bg-base-200 px-10 py-5">
         {error && <div className="alert alert-error w-11/12">{error}</div>}
         <div className="flex items-center justify-between gap-5 w-full">
           <span className="text-xl font-bold text-center">myGPT 🦾</span>
-          <select data-choose-theme className="select select-bordered">
-            {themes.map((theme) => (
-              <option key={theme} value={theme}>
-                {theme}
-              </option>
-            ))}
-          </select>
         </div>
         <div
           className="w-full flex flex-col auto-overflow overflow-x-hidden no-scrollbar"
@@ -80,7 +69,7 @@ const ChatApp = () => {
           selectBox={setModel}
         />
       </div>
-    </div>
+    </LayoutContainer>
   );
 };
 export default ChatApp;
