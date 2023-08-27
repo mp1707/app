@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import LayoutContainer from "../components/LayoutContainer";
 import useLocalState from "../hooks/useLocalState";
+import { Timer } from "../components/Timer";
 
 type Props = {};
 
@@ -13,18 +14,21 @@ const KnittingApp = (props: Props) => {
   const handleReset = () => {
     setCount(1);
   };
+
   return (
     <LayoutContainer>
-      <div className="flex flex-col items-center justify-center w-full h-full gap-5">
-        <div>how much knit?</div>
-        <div>{count}</div>
+      <div className="flex flex-col items-center justify-center w-full h-full gap-10">
+        <Timer />
+        <div className="flex items-center justify-center gap-5 rounded-xl bg-base-200 p-5">
+          <button className="btn btn-error" onClick={handleReset}>
+            reset
+          </button>
+          <div className="text-3xl font-bold">count: {count}</div>
 
-        <button className="btn btn-accent" onClick={handleClick}>
-          increase the KNITSSS
-        </button>
-        <button className="btn btn-accent" onClick={handleReset}>
-          reset the KNITSSS 😿
-        </button>
+          <button className="btn btn-neutral text-2xl" onClick={handleClick}>
+          ✚
+          </button>
+        </div>
       </div>
     </LayoutContainer>
   );
