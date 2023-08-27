@@ -5,6 +5,8 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import StartPage from "./routes/StartPage";
 import ChatApp from "./routes/ChatApp";
+import KnittingApp from "./routes/KnittingApp";
+import ChatRPG from "./routes/ChatRPG";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
   {
     path: "/chatapp",
     element: <ChatApp />,
+  },
+  {
+    path: "/knitting",
+    element: <KnittingApp />,
+  },
+  {
+    path: "/chatRPG",
+    element: <ChatRPG />,
   },
 ]);
 

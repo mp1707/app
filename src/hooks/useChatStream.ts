@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { useState } from "react";
+import useLocalState from "./useLocalState";
 
 const openai = new OpenAI({
   // @ts-ignore
@@ -15,7 +16,7 @@ type HistoryItem = {
 export type Model = "gpt-3.5-turbo" | "gpt-4";
 
 const useChatStream = () => {
-  const [history, setHistory] = useState<HistoryItem[]>([
+  const [history, setHistory] = useLocalState<HistoryItem[]>("chatHistory",[
     {
       role: "system",
       content: "You are a helpful ai assistant. Answer always using Markdown to make your answers more readable. Use breaks, bold headlines and bulletpoints to make your answers easily readable.",
@@ -24,7 +25,7 @@ const useChatStream = () => {
   const [error, setError] = useState<string>();
 
   const [response, setResponse] = useState<string>("");
-  const [model, setModel] = useState<Model>("gpt-3.5-turbo");
+  const [model, setModel] = useLocalState<Model>("chatModel","gpt-3.5-turbo");
 
   const resetHistory = () => {
     setHistory([
@@ -66,7 +67,7 @@ const useChatStream = () => {
     }
   }
 
-  return { setModel, sendPrompt, response, history, error, resetHistory };
+  return { setModel, sendPrompt, response, history, error, resetHistory, model };
 };
 
 export default useChatStream;

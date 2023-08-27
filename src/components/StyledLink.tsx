@@ -7,8 +7,6 @@ type Props = {
 };
 
 export default function StyledLink({ to, name }: Props) {
-  console.log(to, name);
-
   return (
     <NavLink
       className={({ isActive, isPending }) =>

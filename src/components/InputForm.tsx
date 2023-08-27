@@ -1,5 +1,5 @@
 import React from "react";
-import { Model } from "../useChatStream";
+import { Model } from "../hooks/useChatStream";
 
 type InputFormProps = {
   handleReset: (e: any) => void;
@@ -7,6 +7,7 @@ type InputFormProps = {
   handleInputChange: (e: any) => void;
   input: string;
   selectBox: (m: Model) => void;
+  model: "gpt-3.5-turbo" | "gpt-4"
 };
 
 export default function InputForm({
@@ -15,6 +16,7 @@ export default function InputForm({
   handleInputChange,
   input,
   selectBox,
+  model
 }: InputFormProps) {
   return (
     <div className="flex gap-2 items-end w-full">
@@ -32,6 +34,7 @@ export default function InputForm({
         <select
           className="select select-bordered max-w-xs"
           onChange={(e) => selectBox(e.target.value as Model)}
+          defaultValue={model}
         >
           <option value="gpt-3.5-turbo">🚀 fast (3.5)</option>
           <option value="gpt-4">🧠 smart (4)</option>

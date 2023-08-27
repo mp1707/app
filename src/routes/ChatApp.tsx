@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import useChatStream from "../useChatStream";
-import { themeChange } from "theme-change";
+import useChatStream from "../hooks/useChatStream";
 import ChatBubble from "../components/ChatBubble";
 import InputForm from "../components/InputForm";
-import { themes } from "../components/themes";
 import LayoutContainer from "../components/LayoutContainer";
 
 const ChatApp = () => {
   const [input, setInput] = useState("");
-  const { response, error, sendPrompt, history, setModel, resetHistory } =
-    useChatStream();
+  const {
+    response,
+    error,
+    sendPrompt,
+    history,
+    setModel,
+    resetHistory,
+    model,
+  } = useChatStream();
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   const handleSubmit = (e) => {
@@ -37,14 +42,14 @@ const ChatApp = () => {
     }
   }, [history[history.length - 1].content]);
   return (
-    <LayoutContainer >
-      <div className="flex flex-col justify-center items-center gap-2 h-full w-screen bg-base-200 px-10 py-5">
+    <LayoutContainer>
+      <div className="flex flex-col justify-center items-center gap-2 p-5 w-full bg-base-200 rounded-md">
         {error && <div className="alert alert-error w-11/12">{error}</div>}
         <div className="flex items-center justify-between gap-5 w-full">
           <span className="text-xl font-bold text-center">myGPT 🦾</span>
         </div>
         <div
-          className="w-full flex flex-col auto-overflow overflow-x-hidden no-scrollbar"
+          className="w-full flex flex-col auto-overflow overflow-x-hidden no-scrollbar p-2"
           ref={chatContainerRef}
         >
           {history.map(
@@ -67,6 +72,7 @@ const ChatApp = () => {
           handleReset={handleReset}
           input={input}
           selectBox={setModel}
+          model={model}
         />
       </div>
     </LayoutContainer>
