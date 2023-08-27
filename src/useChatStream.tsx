@@ -16,12 +16,24 @@ export type Model = "gpt-3.5-turbo" | "gpt-4";
 
 const useChatStream = () => {
   const [history, setHistory] = useState<HistoryItem[]>([
-    { role: "system", content: "behave like billy butcher from the boys" },
+    {
+      role: "system",
+      content: "You are a helpful ai assistant. Answer always using Markdown to make your answers more readable. Use breaks, bold headlines and bulletpoints to make your answers easily readable.",
+    },
   ]);
   const [error, setError] = useState<string>();
 
   const [response, setResponse] = useState<string>("");
   const [model, setModel] = useState<Model>("gpt-3.5-turbo");
+
+  const resetHistory = () => {
+    setHistory([
+      {
+        role: "system",
+        content: "you are a helpful ai assistant. Answer using Markdown.",
+      },
+    ]);
+  };
 
   async function sendPrompt(prompt: string) {
     let updatedHistory: HistoryItem[] = [
@@ -45,8 +57,8 @@ const useChatStream = () => {
         if (chunk.choices[0].finish_reason !== "stop") {
           newResponse = newResponse + chunk.choices[0].delta.content;
           updatedHistory[updatedHistory.length - 1].content = newResponse;
-          setHistory(updatedHistory)
-          setResponse(newResponse)
+          setHistory(updatedHistory);
+          setResponse(newResponse);
         }
       }
     } catch (error) {
@@ -54,7 +66,7 @@ const useChatStream = () => {
     }
   }
 
-  return { setModel, sendPrompt, response, history, error };
+  return { setModel, sendPrompt, response, history, error, resetHistory };
 };
 
 export default useChatStream;
