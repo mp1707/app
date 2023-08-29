@@ -35,7 +35,7 @@ const ChatRPG = () => {
   return (
     <LayoutContainer>
       <div className="flex flex-col gap-3 items-center">
-        <span className="text-3xl font-bold">chatRPG</span>
+        <span className="text-3xl font-bold">chatRPG 🧙🏽‍♂️</span>
         <form
           onSubmit={onSubmit}
           className="form-control w-full max-w-xs gap-2"
