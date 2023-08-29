@@ -7,6 +7,7 @@ import StartPage from "./routes/StartPage";
 import ChatApp from "./routes/ChatApp";
 import KnittingApp from "./routes/KnittingApp";
 import ChatRPG from "./routes/ChatRPG";
+import Settings from "./routes/Settings";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/chatRPG",
     element: <ChatRPG />,
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
   },
 ]);
 

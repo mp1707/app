@@ -8,35 +8,38 @@ const LayoutContainer = ({ children }: { children: ReactNode }) => {
     themeChange(false);
     // 👆 false parameter is required
   }, []);
-  
+
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
-      <div className="navbar bg-base-200 flex justify-between">
-        <div className="btn btn-ghost normal-case text-xl">
-          <StyledLink to={``} name="Start"/>
+      <div className="navbar bg-base-100 py-0">
+        <div className="flex-1">
+          <a className="btn btn-ghost normal-case text-xl">🚀</a>
         </div>
         <div className="flex-none">
-          <ul className="menu menu-horizontal px-1 flex items-center gap-3">
+          <ul className="menu menu-horizontal gap-1 ">
             <li>
-              <StyledLink to={`chatapp`} name="🧠" />
+              <StyledLink to={`settings`} name="⚙️" />
             </li>
             <li>
-              <StyledLink to={`knitting`} name="🧶" />
+              <details>
+                <summary>Apps</summary>
+                <ul className="p-2 bg-base-100 right-0 flex flex-col gap-2">
+                  <li>
+                    <StyledLink to={`chatapp`} name="GPT" />
+                  </li>
+                  <li>
+                    <StyledLink to={`knitting`} name="Knitting" />
+                  </li>
+                  <li>
+                    <StyledLink to={`chatrpg`} name="chatRPG" />
+                  </li>
+                </ul>
+              </details>
             </li>
-            <li>
-              <StyledLink to={`chatrpg`} name="🧙🏽‍♂️" />
-            </li>
-            <select data-choose-theme className="select select-sm ">
-              {themes.map((theme) => (
-                <option key={theme} value={theme}>
-                  {theme}
-                </option>
-              ))}
-            </select>
           </ul>
         </div>
       </div>
-      <div className="flex flex-1 justify-center h-5/6 w-full my-3 md:w-5/6 lg:w-3/5">
+      <div className="flex flex-1 justify-center items-center h-5/6 w-full md:mb-3  md:w-5/6 lg:w-3/5">
         {children}
       </div>
     </div>

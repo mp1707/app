@@ -43,7 +43,7 @@ const ChatApp = () => {
   }, [history[history.length - 1].content]);
   return (
     <LayoutContainer>
-      <div className="flex flex-col justify-center items-center gap-2 p-5 w-full bg-base-200 rounded-md">
+      <div className="flex flex-col justify-center items-center gap-2 p-5 w-full h-full bg-base-200 rounded-md">
         {error && <div className="alert alert-error w-11/12">{error}</div>}
         <div className="flex items-center justify-between gap-5 w-full">
           <span className="text-xl font-bold text-center">myGPT 🦾</span>
